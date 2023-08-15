@@ -1,0 +1,516 @@
+// $image = $request->avatar;
+// list($type, $image) = explode(';', $image);
+// list(, $image) = explode(',', $image);
+// list(, $type) = explode(':', $type);
+// list(, $extension) = explode('/', $type);
+// $image = base64_decode($image);
+            // $filename = time();
+            // file_put_contents($filename, $image);
+            // $file = new File($filename);
+
+            // $file = saveFileFromBase64(time(), $request->avatar);
+            // dd($request->avatar);
+            // User::find(auth()->id())->addMediaToUrl();
+
+
+
+               @if (auth()->user()->hasSentFriendRequestTo($user))
+                            true 1
+                            <span class="pending-follow" style="float: left;">
+                                <button class="unmember-add ">Request Pending</button>
+                            </span>
+                        @elseif (auth()->user()->isFriendWith($user))
+                            true 2
+                            <span class="remove-follow" style="float: left;">
+                                <button class="member-add">Unfollow</button>
+                            </span>
+                        @elseif (auth()->user()->hasFriendRequestFrom($user))
+                            true 3
+                            <span class="accept-follow" style="float: left;">
+                                <button class="member-add">Accept </button>
+                            </span>
+                            <span class="decline-follow" style="float: left;">
+                                <button class="member-add ">Decline </button>
+                            </span>
+                        @elseif (!auth()->user()->isFriendWith($user))
+                            true 4
+                            <span class="add-follow" style="float: left;">
+                                <button class="member-add ">Follow</button>
+                            </span>
+                        @endif
+
+
+    // public function declineFollowRequest(User $user)
+    // {
+    //     auth()->user()->rejectFollowRequestFrom($user);
+    //     return sendResponse([], 'Follow request has been declined ' . $user->name);
+    // }
+    // public function acceptFollowRequest(User $user)
+    // {
+    //     auth()->user()->acceptFollowRequestFrom($user);
+    //     return sendResponse([], 'Follow request has been accepted ' . $user->name);
+    // }
+
+    // $user_followers = auth()->user()->followings()->whereNotNull('accepted_at')->where(function ($query) use ($request) {
+    //     $query->orWhere('name', $request->keyword)
+    //         ->orWhere('email', $request->keyword);
+    // })->get();
+    // $user_followers = auth()->user()->followings()->whereNotNull('accepted_at')->whereHas('user', function ($query) use ($request) {
+    //     $query->where('name', 'like', $request->keyword . '%');
+    // })->get();
+    // $html = view('components.sub-components.profile-follower.followers', compact(['user_followers']))->render();
+
+    // return response()->json([
+    //     'html' => $html,
+    //     // 'total' => (string) $leads->total(),
+    //     // 'pagination' => (string) $leads->links()
+    // ]);
+
+
+
+reset pass blade
+      {{-- <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Reset Password') }}</div>
+
+                <div class="card-body">
+                    <form method="POST" action="{{ route('password.update') }}">
+                        @csrf
+
+                        <input type="hidden" name="token" value="{{ $token }}">
+
+                        <div class="row mb-3">
+                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            </div>
+                        </div>
+
+                        <div class="row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Reset Password') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+
+
+
+email blade
+ {{-- <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Reset Password') }}</div>
+
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('password.email') }}">
+                        @csrf
+
+                        <div class="row mb-3">
+                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Send Password Reset Link') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+
+
+// follower request vali script
+
+ <script>
+     $(document).ready(function() {
+
+         $(document).on("click", ".add-follow", function(e) {
+             e.preventDefault();
+             $.ajax({
+                 type: "GET",
+                 url: "{{ route('frontend.send.follow-request', $user->name) }}",
+                 data: {},
+                 dataType: 'html',
+                 success: function(response) {
+                     $('#single-profile-app').html(response);
+
+
+                     // alert(response.message);
+
+                     // if ($('.add-follow > button').hasClass('follow')) {
+                     //     $('.add-follow').html(
+                     //         '<button class="unmember-add ">Requested</button>');
+                     //     $('.add-follow').attr('class', 'pending-follow');
+                     // }
+                     // if ($('.add-follow > button').hasClass('followback')) {
+                     //     $('.add-follow').html(
+                     //         '<button class="unmember-add ">Requested</button>');
+                     //     $('.add-follow').attr('class', 'pending-follow');
+                     // }
+
+
+                 }
+             });
+         });
+
+         $(document).on("click", ".pending-follow", function(e) {
+             e.preventDefault();
+             $.ajax({
+                 type: "GET",
+                 url: "{{ route('frontend.remove.follow-request', $user->name) }}",
+                 data: {},
+                 dataType: 'html',
+                 success: function(response) {
+                     $('#single-profile-app').html(response);
+
+                     //  alert(response.message);
+                     //  $('.pending-follow').html(
+                     //      '<button class="member-add">Follow</button>');
+                     //  $('.pending-follow').attr('class', 'add-follow');
+                 }
+             });
+         });
+
+         $(document).on("click", ".accept-follow", function(e) {
+             e.preventDefault();
+             $.ajax({
+                 type: "GET",
+                 url: "{{ route('frontend.accept.follow-request', $user->name) }}",
+                 data: {},
+                 dataType: 'html',
+                 success: function(response) {
+                     $('#single-profile-app').html(response);
+
+                     //  alert(response.message);
+                     //  $('.follow-div').html(`<span class="add-follow" style="float: left;">
+                    //                 <button class="member-add followback">Follow Back</button>
+                    //             </span>`);
+                     //  $('.hasRequestedToFollowUser').html('');
+                 }
+             });
+         });
+
+         $(document).on("click", ".decline-follow", function(e) {
+             e.preventDefault();
+             $.ajax({
+                 type: "GET",
+                 url: "{{ route('frontend.decline.follow-request', $user->name) }}",
+                 data: {},
+                 dataType: 'html',
+                 success: function(response) {
+                     $('#single-profile-app').html(response);
+                     //  alert(response.message);
+                     //  $('.hasRequestedToFollowUser').html('');
+                 }
+             });
+         });
+
+         $(document).on("click", ".add-subscribe", function(e) {
+             e.preventDefault();
+             $.ajax({
+                 type: "GET",
+                 url: "{{ route('frontend.subscribe', $user->name) }}",
+                 data: {},
+                 dataType: 'html',
+                 success: function(response) {
+                     $('#single-profile-app').html(response);
+                     // alert(response.message);
+                     // $('.add-subscribe').html(
+                     //     '<button class="unmember-add">Un-Subscribe</button>');
+                     // $('.add-subscribe').attr('class', 'un-subscribe');
+                 }
+             });
+         });
+
+         $(document).on("click", ".un-subscribe", function(e) {
+             e.preventDefault();
+             $.ajax({
+                 type: "GET",
+                 url: "{{ route('frontend.unsubscribe', $user->name) }}",
+                 data: {},
+                 dataType: 'html',
+                 success: function(response) {
+                     $('#single-profile-app').html(response);
+
+                     //  alert(response.message);
+                     //  $('.un-subscribe').html(
+                     //      '<button class="member-add">Subscribe</button>');
+                     //  $('.un-subscribe').attr('class', 'add-subscribe');
+                 }
+             });
+         });
+
+     });
+ </script>
+
+// follower request vali script
+timeline pagination
+
+<script>
+    $(document).on("click", ".load-more-posts-btn", function(e) {
+        page = $(this);
+        e.preventDefault();
+        $.ajax({
+            type: "GET",
+            url: "{{ route('frontend.home') }}",
+            data: {
+                'page': page.data('page'),
+            },
+            dataType: "json",
+            success: function(response) {
+                page.data('page', page.data('page') + 1);
+                page.data('last-page', response.lastPage);
+                $('.post-append').append(response.html);
+                if (response.lastPage < page.data('page')) {
+                    page.hide();
+                }
+            }
+        });
+    });
+</script>
+
+
+        <div class="load-more-posts-btn" data-page="2" data-last-page="{{ $user_posts->lastPage() == 1 ? 1 : 2 }}"
+            style={{ $user_posts->lastPage() == 1 ? 'display:none' : '' }}>
+            <a href="#"><i class="flaticon-loading"></i> Load More Posts</a>
+        </div>
+
+
+        // dd($users);
+         // $suggestedPeoples = $users->sortByDesc(function ($user, $key) {
+         //     return $user->subscribers()->count();
+         // });
+         // $suggestedPeoples = $suggestedPeoples->values();
+
+
+
+
+nocomment//
+
+.no-comment{
+    justify-content: center;
+    display:flex;
+  }
+
+  .no-comment img{
+  max-width: 55px;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .no-comment h3{
+    margin-top: 1%;
+    margin-top: 6%;
+  }
+
+
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <div class="row">
+                                                                                    <div class="single-video-card no-comment">
+                                                                                        <div
+                                                                                            class="video-info">
+                                                                                            <a
+                                                                                                href="">
+                                                                                                <img src={{ asset('frontend/assets/images/nocomment.png') }}
+                                                                                                    alt="image">
+                                                                                            </a>
+                                                                                            <div
+                                                                                                class="text">
+                                                                                                <h3>No Comment
+                                                                                                </h3>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-12">
+                                                                                        <div class="row">
+                                                                                            <div class="col-12">
+                                                                                                <div class="single-video-card">
+                                                                                                    <div
+                                                                                                        class="video-info">
+                                                                                                        <a
+                                                                                                            href="">
+                                                                                                            <img src={{ asset('frontend/assets/images/user/user-14.jpg') }}
+                                                                                                                class="rounded-circle"
+                                                                                                                alt="image">
+                                                                                                        </a>
+                                                                                                        <div
+                                                                                                            class="text">
+                                                                                                            <h3>David
+                                                                                                                Moore
+                                                                                                            </h3>
+                                                                                                            <span>5 Mins
+                                                                                                                Ago</span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-12 px-3">
+                                                                                        <p>Donec rutrum congue leo eget
+                                                                                            malesuada nulla quis
+                                                                                            lorem ut libero malesuada
+                                                                                            feugiat donec rutrum
+                                                                                            congue leo eget malesuada
+                                                                                            donec rutrum congue leo
+                                                                                            eget malesuada. Praesent
+                                                                                            sapien massa convallis a
+                                                                                            pellentesque non nisi
+                                                                                            curabitur non nulla sit amet
+                                                                                            nisl tempus convallis
+                                                                                            lectus.</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+
+ // window.Echo.private(`notification.delete.` + window.Laravel.user).listen('.NotificationDeleteEvent', (data) => {
+        //     if (data.code == 'bavsjVAFSYufhvQWUVWfvhjwVJHXUy') {
+        //         if (document.URL.replace({!! json_encode(env('APP_URL')) !!}, "").includes('/profile')) {
+        //             $.ajax({
+        //                 type: "get",
+        //                 url: "{{ route('frontend.render.component') }}",
+        //                 data: {
+        //                     'comp_for': 'follow-req-accept',
+        //                     'user': data.receiver_id
+        //                 },
+        //                 dataType: "html",
+        //                 success: function(response) {
+        //                     $('#single-profile-app').html(response);
+        //                 }
+        //             });
+        //         }
+        //     }
+
+        //     if (data.code == 'skjdgTSDiyvYFssdsdJBKSGUI') {
+        //         jQuery('.fndiv-' + data.notification_id).remove();
+        //         jQuery('.unreadfollow-count').text(data.unreadCount['follow']);
+        //         if (document.URL.replace({!! json_encode(env('APP_URL')) !!}, "").includes('/profile')) {
+        //             $.ajax({
+        //                 type: "get",
+        //                 url: "{{ route('frontend.render.component') }}",
+        //                 data: {
+        //                     'comp_for': 'follow-req-accept',
+        //                     'user': data.sender_id
+        //                 },
+        //                 dataType: "html",
+        //                 success: function(response) {
+        //                     $('#single-profile-app').html(response);
+        //                 }
+        //             });
+        //         }
+        //     }
+
+        //     if (data.code == 'lsjhdusdusgudqy7wugq7wdgi') {
+        //         jQuery('.fndiv-' + data.notification_id).remove();
+        //         jQuery('.unreadfollow-count').text(data.unreadCount['follow']);
+        //     }
+
+        //     if (data.code == 'hvsdsadyfGAHSFyFhFDJSyuSDJ') {
+        //         jQuery('.fndiv-' + data.notification_id).remove();
+        //         jQuery('.unreadfollow-count').text(data.unreadCount['follow']);
+        //         if (document.URL.replace({!! json_encode(env('APP_URL')) !!}, "").includes('/profile')) {
+        //             $.ajax({
+        //                 type: "get",
+        //                 url: "{{ route('frontend.render.component') }}",
+        //                 data: {
+        //                     'comp_for': 'follow-req-accept',
+        //                     'user': data.receiver_id
+        //                 },
+        //                 dataType: "html",
+        //                 success: function(response) {
+        //                     $('#single-profile-app').html(response);
+        //                 }
+        //             });
+        //         }
+        //     }
+
+        //     if (data.code == 'psojIPJSIDjsIDhBSdjbusdSDuySG') {
+        //         jQuery('.notidiv-' + data.notification_id).remove();
+        //         jQuery('.unreadnotifications-count').text(data.unreadCount['notification']);
+        //     }
+
+        //     if (data.code == 'KHgYDGSGIYGsidydasdgyufAg') {
+        //         jQuery('.notidiv-' + data.notification_id).remove();
+        //         jQuery('.unreadnotifications-count').text(data.unreadCount['notification']);
+        //     }
+        // });
+
+
+
+
+
+
+
+
+
+
+http://hayageek.com/drag-and-drop-file-upload-jquery/
+
+
+free or paid image post problem
+1)after uploading get all media and delete media freom db and upload again
